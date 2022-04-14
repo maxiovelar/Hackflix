@@ -1,0 +1,21 @@
+.scroll-text {
+  display: flex;
+  align-items: center;
+  letter-spacing: 3px;
+  transform: rotate(0.75turn);
+  position: fixed;
+  top: 70vh;
+  right: -2.4rem;
+}
+
+@media only screen and (max-width: 1300px) {
+  .scroll-text {
+    right: -3.5rem;
+  }
+}
+
+@media only screen and (max-width: 1260px) {
+  .scroll-text {
+    display: none;
+  }
+}

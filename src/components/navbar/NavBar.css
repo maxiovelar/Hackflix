@@ -1,0 +1,31 @@
+.nav-position {
+  position: sticky;
+  top: 0;
+}
+
+.navbar-brand-link {
+  letter-spacing: 0.15rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+#search,
+#form {
+  background-color: #0f0f0f;
+}
+
+#search:active,
+#search:focus {
+  outline: none;
+}
+
+.nav-dropdown-link:hover {
+  color: #ef6c00;
+}
+
+@media only screen and (max-width: 1260px) {
+  .nav-position {
+    position: fixed;
+    width: 100%;
+  }
+}

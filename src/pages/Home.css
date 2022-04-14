@@ -1,0 +1,9 @@
+.movies-container {
+  margin-top: 2.5rem;
+}
+
+@media only screen and (max-width: 1000px) {
+  .movies-container {
+    margin-top: 8rem;
+  }
+}

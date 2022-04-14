@@ -1,0 +1,29 @@
+.modal-backdrop {
+  background-color: black;
+  filter: opacity(0.9);
+}
+
+.hover:hover {
+  opacity: 0.8;
+}
+
+.modal-shadow {
+  box-shadow: 0 2px 4px black;
+}
+
+.orange-hover:hover {
+  color: #ef6c00;
+  opacity: 0.6;
+}
+
+@media only screen and (max-width: 768px) {
+  .modal-sm-subtitle {
+    font-size: 1rem;
+  }
+  .modal-sm-subtitle {
+    font-size: 0.9rem;
+  }
+  .modal-sm-text {
+    font-size: 0.8rem;
+  }
+}

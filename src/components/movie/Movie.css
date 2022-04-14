@@ -1,0 +1,13 @@
+.movie {
+  cursor: pointer;
+}
+
+.movie:hover {
+  transform: translateY(-15px);
+  transition: ease 0.3s;
+  transition-delay: 0.2s;
+}
+
+.poster-movie {
+  z-index: 4;
+}

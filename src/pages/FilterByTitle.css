@@ -1,0 +1,32 @@
+#form-search-by-title {
+  width: 40%;
+}
+
+#search {
+  position: relative;
+  flex: 1 1 auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: auto;
+  width: 1%;
+  min-width: 0;
+}
+
+#search:active,
+#search:focus {
+  outline: none;
+}
+
+#search-left-side {
+  border-radius: 50% 0 0 50%;
+}
+
+#search-right-side {
+  border-radius: 0 50% 50% 0;
+}
+
+@media only screen and (max-width: 768px) {
+  #form-search-by-title {
+    width: 75%;
+  }
+}

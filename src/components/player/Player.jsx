@@ -79,7 +79,7 @@ function Player() {
         </div>
         <div className="col-10 col-xl-4 d-flex align-items-center">
           <i className="bi bi-volume-down-fill text-orange fs-3"></i>
-          <label for="customRange1" className="form-label visually-hidden">
+          <label htmlFor="customRange1" className="form-label visually-hidden">
             Volume range
           </label>
           <input

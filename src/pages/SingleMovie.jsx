@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Spinner } from "react-bootstrap";
 import Rating from "react-rating";
 import { useParams } from "react-router-dom";
 import Player from "../components/player/Player";
@@ -23,14 +22,13 @@ function SingleMovie() {
         .catch((err) => {
           console.log("ERROR: ", err);
         });
-      console.log(data);
       setSingleMovie(data);
     };
     getMovie();
   }, [params.id]);
 
   return (
-    <div className="bg-black overflow-hidden movie-content">
+    <div className="bg-black overflow-hidden movie-content animate__animated animate__fadeIn">
       <div className="animate__animated animate__fadeIn">
         <div className="d-flex main-movie-content">
           <div className="flex-shrink-0 poster-container">
@@ -50,23 +48,8 @@ function SingleMovie() {
               {singleMovie.overview}
             </div>
             <div className="text-white">
-              {/* {console.log(singleMovie.genres[0].name)} */}
-              {/* {singleMovie.genres.map((genre) => (
-                <p
-                  key={singleMovie.id + Math.random()}
-                  className="p-2 bg-dark text-white"
-                >
-                  {genre.name}
-                </p>
-              ))} */}
             </div>
             <div className="d-flex flex-column w-100 h-100 px-0 mt-4">
-              {/* <span className="text-orange text-shadow me-2 mt-2">
-                Genre:
-                <span className="text-white ms-1">
-                  {singleMovie.genres.item.name}
-                </span>
-              </span> */}
               <span className="text-orange text-shadow">
                 Votes count:
                 <span className="text-white text-shadow fs-5 ms-2">

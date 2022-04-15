@@ -6,6 +6,16 @@
     font-size: 3rem;
 }
 
+.form-range::-moz-range-thumb {
+    background-color: #ef6c00;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.form-range::-moz-range-track {
+    background-color: #000000;
+}
+
 @media only screen and (max-width: 1260px) {
     .player-container {
         margin-top: 1rem;
@@ -18,6 +28,8 @@
         margin-top: 1.2rem;
     }
 }
+
+
 
 /* @media only screen and (min-width: 1200px) {
     .responsive-progress-bar {

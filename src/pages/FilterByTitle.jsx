@@ -3,18 +3,8 @@ import MovieModal from "../components/movie-modal/MovieModal";
 import "./FilterByTitle.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Footer from "../components/footer/Footer";
-
-// const axiosConfig = {
-//   baseURL: "https://api.themoviedb.org/3/",
-//   params: {
-//     api_key: "8836ccc55842255d5b53cba76a1d1014",
-//     page: 1,
-//     include_adult: false,
-//     language: "en-US",
-//     "vote_count.gte": 15,
-//   },
-// };
+import ScrollToTop from "../components/scrollToTop/ScrollToTop";
+import { Spinner } from "react-bootstrap";
 
 function FilterByTitle() {
   const [title, setTitle] = useState("");
@@ -22,11 +12,12 @@ function FilterByTitle() {
   const [movieSelected, setMovieSelected] = useState({});
   const [modalShow, setModalShow] = useState(false);
   const [pageCounter, setPageCounter] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleScroll() {
     if (
       window.innerHeight + Math.ceil(window.pageYOffset) >=
-      document.body.offsetHeight - 700
+      document.body.offsetHeight
     ) {
       setPageCounter((prev) => prev + 1);
       setTitle((prev) => prev);
@@ -52,7 +43,6 @@ function FilterByTitle() {
         });
       setMovies(data.results);
     };
-    console.log(title, movies);
 
     getMovies();
   }, [title]);
@@ -70,14 +60,13 @@ function FilterByTitle() {
         setMovies((prev) => [...prev, ...data.results]);
       }
     };
-    console.log(title, movies);
 
     getMovies();
   }, [pageCounter]);
 
   return (
     <div>
-      <div className="container d-flex align-items-center justify-content-center my-4">
+      <div className="container search-box d-flex align-items-center justify-content-center">
         <form
           id="form-search-by-title"
           className="input-group d-flex align-items-center bg-black rounded-pill py-1 pe-3"
@@ -101,18 +90,32 @@ function FilterByTitle() {
             onChange={(e) => {
               setTitle(e.target.value);
               setPageCounter(1);
+              {
+                e.target.value === ""
+                  ? setIsLoading(false)
+                  : setIsLoading(true);
+              }
             }}
           />
         </form>
       </div>
-      <div className="container movies-container animate__animated animate__fadeIn">
-        <div className="row gy-4 gx-2">
-          {movies.length &&
+      {isLoading && (
+        <div className="d-flex justify-content-center align-items-center mt-5 pt-5">
+          <Spinner animation="border" variant="secondary" />
+        </div>
+      )}
+      <div className="container animate__animated animate__fadeIn">
+        <ScrollToTop />
+        <div className="row gy-4 gx-2 animate__animated animate__fadeIn">
+          {movies.length > 0 &&
             title !== "" &&
             movies.map((movie) => (
               <div
                 key={movie.id + Math.random()}
-                className="col-4 col-sm-3 col-md-3 col-lg-2"
+                className="col-4 col-sm-3 col-md-3 col-lg-2 animate__animated animate__fadeIn"
+                onLoad={() => {
+                  setIsLoading(false);
+                }}
               >
                 <Movie
                   movie={movie}

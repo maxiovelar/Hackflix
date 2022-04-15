@@ -1,0 +1,10 @@
+.rating-box {
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+@media only screen and (max-width: 1260px) {
+  .rating-box {
+    margin-top: 6rem;
+  }
+}

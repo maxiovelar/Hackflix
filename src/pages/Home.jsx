@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import ScrollToTop from "../components/scrollToTop/ScrollToTop";
 import "./Home.css";
+import { Spinner } from "react-bootstrap";
 
 const axiosConfig = {
   baseURL: "https://api.themoviedb.org/3/",
@@ -22,6 +23,7 @@ function Home() {
   const [movieSelected, setMovieSelected] = useState({});
   const [modalShow, setModalShow] = useState(false);
   const [pageCounter, setPageCounter] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
 
   function handleScroll() {
     if (
@@ -55,14 +57,22 @@ function Home() {
   return (
     <div className="animate__animated animate__fadeIn position-relative">
       <Slider setMovieSelected={setMovieSelected} setModalShow={setModalShow} />
+      {isLoading && (
+        <div className="d-flex justify-content-center align-items-center mt-5 pt-5">
+          <Spinner animation="border" variant="secondary" />
+        </div>
+      )}
       <div className="container movies-container">
         <ScrollToTop />
-        <div className="row gy-4 gx-2">
+        <div className="row gy-4 gx-2 animate__animated animate__fadeIn">
           {movies.length &&
             movies.map((movie) => (
               <div
                 key={movie.id + Math.random()}
-                className="col-4 col-sm-3 col-md-3 col-lg-2"
+                className="col-4 col-sm-3 col-md-3 col-lg-2 animate__animated animate__fadeIn"
+                onLoad={() => {
+                  setIsLoading(false);
+                }}
               >
                 <Movie
                   movie={movie}

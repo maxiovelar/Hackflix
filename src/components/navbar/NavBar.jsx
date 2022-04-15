@@ -42,7 +42,7 @@ function NavBar() {
               <Dropdown.Item className="nav-dropdown-link py-3 py-lg-2">
                 <Link
                   to={"/search-by-title"}
-                  className="text-decoration-none text-orange nav-dropdown-link"
+                  className="text-decoration-none text-orange nav-dropdown-link py-3 py-lg-2"
                 >
                   Search by title
                 </Link>

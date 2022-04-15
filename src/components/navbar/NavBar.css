@@ -9,6 +9,20 @@
   text-decoration: none;
 }
 
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler:active,
+.navbar-toggler:focus {
+  box-shadow: none;
+}
+
+.dropdown-menu-dark .dropdown-item:focus,
+.dropdown-menu-dark .dropdown-item:active {
+  background-color: #0f0f0f;
+}
+
 #search,
 #form {
   background-color: #0f0f0f;

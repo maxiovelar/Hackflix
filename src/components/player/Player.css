@@ -16,6 +16,24 @@
   background-color: #000000;
 }
 
+.form-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  background-color: #ef6c00;
+}
+
+.form-range::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  background-color: #000000;
+}
+
+.form-range::-ms-thumb {
+  background-color: #ef6c00;
+}
+
+.form-range::-ms-track {
+  background-color: #000000;
+}
+
 @media only screen and (max-width: 1260px) {
   .player-container {
     margin-top: 1rem;

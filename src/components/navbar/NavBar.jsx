@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NavBar.css";
 import { Dropdown, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 function NavBar() {
+  const [isExpanded, setIsExpanded] = useState(false);
+
   return (
     <Navbar
       bg="dark"
       expand="lg"
+      expanded={isExpanded}
       className="navbar-dark py-3 px-4 shadow nav-position"
     >
       <Link
@@ -27,7 +30,12 @@ function NavBar() {
         Home
       </Link>
 
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Toggle
+        onClick={() => {
+          setIsExpanded(!isExpanded);
+        }}
+        aria-controls="basic-navbar-nav"
+      />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
           <Dropdown>
@@ -39,7 +47,12 @@ function NavBar() {
               Search by
             </Dropdown.Toggle>
             <Dropdown.Menu className="dropdown-menu dropdown-menu-dark dropdown-menu-md-end bg-darker shadow-lg">
-              <Dropdown.Item className="nav-dropdown-link py-3 py-lg-2">
+              <Dropdown.Item
+                onClick={() => {
+                  setIsExpanded(false);
+                }}
+                className="nav-dropdown-link py-3 py-lg-2"
+              >
                 <Link
                   to={"/search-by-title"}
                   className="text-decoration-none text-orange nav-dropdown-link py-3 py-lg-2"
@@ -47,7 +60,12 @@ function NavBar() {
                   Search by title
                 </Link>
               </Dropdown.Item>
-              <Dropdown.Item className="nav-dropdown-link py-3 py-lg-2">
+              <Dropdown.Item
+                onClick={() => {
+                  setIsExpanded(false);
+                }}
+                className="nav-dropdown-link py-3 py-lg-2"
+              >
                 <Link
                   to={"/search-by-rating"}
                   className="text-decoration-none text-orange nav-dropdown-link"

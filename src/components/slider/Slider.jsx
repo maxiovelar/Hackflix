@@ -10,7 +10,7 @@ function Slider({ setMovieSelected, setModalShow }) {
   useEffect(() => {
     const getMovies = async () => {
       const response = await axios.get(
-        "https://api.themoviedb.org/3/discover/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate"
+        "https://api.themoviedb.org/3/discover/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&page=1"
       );
       setCarouselMovies(response.data.results);
     };

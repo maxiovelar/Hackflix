@@ -2,6 +2,11 @@
   height: calc(100vh - 72px);
 }
 
+.movie-player {
+  max-width: 450px;
+  max-height: "auto";
+}
+
 @media only screen and (max-width: 1260px) {
   .movie-content {
     margin-top: 4rem;

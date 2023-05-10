@@ -5,9 +5,11 @@ import "./MovieModal.css";
 import cinema from "../../assets/cinema.jpg";
 import Rating from "react-rating";
 import { Link } from "react-router-dom";
+import cn from "classnames";
 
 function MovieModal({ setModalShow, movieSelected, modalShow }) {
   const handleClose = () => setModalShow(false);
+  const is4K = Number(movieSelected?.release_date?.slice(0, 4)) >= 2016;
 
   return (
     <Modal
@@ -50,7 +52,14 @@ function MovieModal({ setModalShow, movieSelected, modalShow }) {
           <Modal.Title id="contained-modal-title-vcenter">
             <p className="fw-bold h3 text-center mb-3 modal-sm-title">
               {movieSelected.title}
-              <i className="bi bi-badge-hd fs-6 ms-2 text-orange"></i>
+              {
+                <i
+                  className={cn("bi fs-5 ms-2 text-orange", {
+                    "bi-badge-hd": !is4K,
+                    "bi-badge-4k": is4K,
+                  })}
+                ></i>
+              }
             </p>
           </Modal.Title>
           <div>

@@ -38,7 +38,7 @@ function FilterByRating() {
         .get(
           `https://api.themoviedb.org/3/discover/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&vote_average.gte=${
             rating * 2 - 0.99
-          }&page=${pageCounter}&vote_count.gte=50&include_adult=false`
+          }&page=${pageCounter}&sort_by=vote_average.desc&vote_count.gte=100&include_adult=false`
         )
         .catch((err) => {
           console.log("ERROR: ", err);
@@ -54,7 +54,7 @@ function FilterByRating() {
         .get(
           `https://api.themoviedb.org/3/discover/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&vote_average.gte=${
             rating * 2 - 0.99
-          }&page=${pageCounter}&vote_count.gte=50&include_adult=false`
+          }&page=${pageCounter}&sort_by=vote_average.desc&vote_count.gte=100&include_adult=false`
         )
         .catch((err) => {
           console.log("ERROR: ", err);
@@ -65,7 +65,7 @@ function FilterByRating() {
   }, [pageCounter]);
 
   return (
-    <div>
+    <div className="mb-5">
       <div className="container rating-box d-flex align-items-center justify-content-center">
         <div className="d-flex align-items-center text-light">
           <span className="me-2 fs-5">Search by rating:</span>
@@ -86,7 +86,7 @@ function FilterByRating() {
         </div>
       )}
       <div className="container animate__animated animate__fadeIn">
-        <ScrollToTop />
+        <ScrollToTop movies={movies} />
         <div className="row gy-4 gx-2 animate__animated animate__fadeIn">
           {movies.length > 0 &&
             rating !== 0 &&

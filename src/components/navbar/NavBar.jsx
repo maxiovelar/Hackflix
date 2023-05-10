@@ -3,7 +3,7 @@ import "./NavBar.css";
 import { Dropdown, Nav, Navbar } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-function NavBar() {
+function NavBar({ isOnline }) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -29,7 +29,6 @@ function NavBar() {
       >
         Home
       </Link>
-
       <Navbar.Toggle
         onClick={() => {
           setIsExpanded(!isExpanded);
@@ -77,6 +76,17 @@ function NavBar() {
           </Dropdown>
         </Nav>
       </Navbar.Collapse>
+      {isOnline === true ? (
+        <i
+          className="d-none ms-5 text-white bi bi-wifi d-lg-block"
+          title="Online"
+        ></i>
+      ) : (
+        <i
+          className="d-none ms-5 text-danger bi bi-wifi-off d-lg-block"
+          title="Offline"
+        ></i>
+      )}
     </Navbar>
   );
 }

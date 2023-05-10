@@ -51,7 +51,7 @@ function FilterByTitle() {
     const getMovies = async () => {
       const { data } = await axios
         .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&query=${title}&page=${pageCounter}&vote_average.gte=50&include_adult=false`
+          `https://api.themoviedb.org/3/search/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&query=${title}&page=${pageCounter}&sort_by=vote_average.desc&vote_count.gte=200&include_adult=false`
         )
         .catch((err) => {
           console.log("ERROR: ", err);
@@ -65,7 +65,7 @@ function FilterByTitle() {
   }, [pageCounter]);
 
   return (
-    <div>
+    <div className="mb-5">
       <div className="container search-box d-flex align-items-center justify-content-center">
         <form
           id="form-search-by-title"
@@ -86,15 +86,12 @@ function FilterByTitle() {
             value={title}
             className="bg-black text-white border-0 ms-0 py-2 rounded-pill"
             placeholder="search by title"
+            autoFocus
             autoComplete="off"
             onChange={(e) => {
               setTitle(e.target.value);
               setPageCounter(1);
-              {
-                e.target.value === ""
-                  ? setIsLoading(false)
-                  : setIsLoading(true);
-              }
+              e.target.value === "" ? setIsLoading(false) : setIsLoading(true);
             }}
           />
         </form>
@@ -105,7 +102,7 @@ function FilterByTitle() {
         </div>
       )}
       <div className="container animate__animated animate__fadeIn">
-        <ScrollToTop />
+        <ScrollToTop movies={movies} />
         <div className="row gy-4 gx-2 animate__animated animate__fadeIn">
           {movies.length > 0 &&
             title !== "" &&

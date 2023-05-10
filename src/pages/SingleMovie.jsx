@@ -4,10 +4,17 @@ import Rating from "react-rating";
 import { useParams } from "react-router-dom";
 import Player from "../components/player/Player";
 import "./SingleMovie.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import cn from "classnames";
 
 function SingleMovie() {
   const [singleMovie, setSingleMovie] = useState({});
   const params = useParams();
+  const notify = () =>
+    toast.info("This function is beyond the scope of this project.");
+
+  const is4K = Number(singleMovie?.release_date?.slice(0, 4)) >= 2016;
 
   useEffect(() => {
     window.scrollTo(0, -5);
@@ -27,6 +34,8 @@ function SingleMovie() {
     getMovie();
   }, [params.id]);
 
+  console.log(singleMovie);
+
   return (
     <div className="bg-black overflow-hidden movie-content animate__animated animate__fadeIn">
       <div className="animate__animated animate__fadeIn">
@@ -41,15 +50,19 @@ function SingleMovie() {
           <div className="flex-grow-1 p-3 p-md-4 p-lg-5">
             <h1 className="text-white fw-bold">
               {singleMovie.title}
-              <i className="bi bi-badge-hd text-orange fs-4 ms-2"></i>
+              <i
+                className={cn("bi text-orange fs-4 ms-2", {
+                  "bi-badge-hd": !is4K,
+                  "bi-badge-4k": is4K,
+                })}
+              ></i>
             </h1>
             <h2 className="text-white h3">Overview:</h2>
             <div className="text-white overflow-auto">
               {singleMovie.overview}
             </div>
-            <div className="text-white">
-            </div>
-            <div className="d-flex flex-column w-100 h-100 px-0 mt-4">
+            <div className="text-white"></div>
+            <div className="d-flex flex-column w-100 h-100 px-0 mt-3">
               <span className="text-orange text-shadow">
                 Votes count:
                 <span className="text-white text-shadow fs-5 ms-2">
@@ -75,11 +88,29 @@ function SingleMovie() {
                   {singleMovie.original_language}
                 </span>
               </span>
-              <Player />
+              <video
+                controls
+                className="movie-player mt-4 pointer"
+                title="This function is beyond the scope of this project"
+                onClick={notify}
+              />
+              {/* <Player /> */}
             </div>
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        theme="dark"
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

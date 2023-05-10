@@ -10,7 +10,7 @@ function Footer() {
       </p>
       <img src={tmdbLogo} width="100px" alt="the movie db logo" />
       <p className="copyright mt-4 mb-0 text-center">
-        Copyright © 2022 Maxi Ovelar. All Rights Reserved
+        Copyright © {new Date().getFullYear()} Maxi Ovelar. All Rights Reserved
       </p>
     </footer>
   );

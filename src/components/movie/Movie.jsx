@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Movie.css";
 import poster from "../../assets/cinema_poster.jpg";
 
 function Movie({ movie, setModalShow, setMovieSelected }) {
   return (
     <div
-      className="movie shadow animate__animated animate__fadeIn rounded-4 position-relative"
+      className="movie animate__animated animate__fadeIn rounded-4 position-relative"
       onClick={() => {
         setMovieSelected(movie);
         setModalShow(true);
       }}
+      title={movie.title}
     >
       {movie.poster_path ? (
         <img

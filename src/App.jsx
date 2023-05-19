@@ -4,8 +4,8 @@ import HomePage from "./pages/HomePage";
 import FilterByTitle from "./pages/FilterByTitle";
 import FilterByRating from "./pages/FilterByRating";
 import SingleMovie from "./pages/SingleMovie";
-import Layout from "./components/Layout";
 import { Home } from "./pages/Home";
+import Layout from "./components/layout/Layout";
 
 function App() {
   return (

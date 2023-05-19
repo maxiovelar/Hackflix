@@ -8,6 +8,7 @@ function NavBar({ isOnline }) {
 
   return (
     <Navbar
+      data-testid="navbar"
       bg="dark"
       expand="lg"
       expanded={isExpanded}
@@ -78,11 +79,13 @@ function NavBar({ isOnline }) {
       </Navbar.Collapse>
       {isOnline === true ? (
         <i
+          data-testid="online"
           className="d-none ms-5 text-white bi bi-wifi d-lg-block"
           title="Online"
         ></i>
       ) : (
         <i
+          data-testid="offline"
           className="d-none ms-5 text-danger bi bi-wifi-off d-lg-block"
           title="Offline"
         ></i>

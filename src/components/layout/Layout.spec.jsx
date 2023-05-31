@@ -11,26 +11,24 @@ import { useIsOnline } from "../../hooks/useIsOnline";
 jest.mock("../../hooks/useIsOnline");
 
 describe("Layout component test cases", () => {
-  it("should render without crashing", () => {
-    // Act
-    render(
+  const renderLayout = (children = null) => {
+    return render(
       <MemoryRouter>
-        <Layout />
+        <Layout>{children}</Layout>
       </MemoryRouter>
     );
+  };
+
+  it("should render without children", () => {
+    // Act
+    renderLayout();
     // Assert
     expect(screen.getByTestId("layout")).toBeInTheDocument();
   });
 
   it("should render with children", () => {
-    // Arrange
-    const children = <div>Hello World</div>;
     // Act
-    render(
-      <MemoryRouter>
-        <Layout>{children}</Layout>
-      </MemoryRouter>
-    );
+    renderLayout(<div>Hello World</div>);
     // Assert
     expect(screen.getByTestId("layout")).toBeInTheDocument();
     expect(screen.getByText("Hello World")).toBeInTheDocument();
@@ -40,11 +38,7 @@ describe("Layout component test cases", () => {
     // Arrange
     useIsOnline.mockImplementation(() => true);
     // Act
-    render(
-      <MemoryRouter>
-        <Layout />
-      </MemoryRouter>
-    );
+    renderLayout();
     // Assert
     expect(useIsOnline).toHaveBeenCalled();
     expect(screen.getByTestId("online")).toBeInTheDocument();
@@ -55,39 +49,16 @@ describe("Layout component test cases", () => {
     // Arrange
     useIsOnline.mockImplementation(() => false);
     // Act
-    render(
-      <MemoryRouter>
-        <Layout />
-      </MemoryRouter>
-    );
+    renderLayout();
     // Assert
     expect(useIsOnline).toHaveBeenCalled();
     expect(screen.getByTestId("offline")).toBeInTheDocument();
     expect(screen.getByTestId("layout")).toBeInTheDocument();
   });
 
-  it("should render with null children", () => {
-    // Arrange
-    const children = null;
-    // Act
-    render(
-      <MemoryRouter>
-        <Layout>{children}</Layout>
-      </MemoryRouter>
-    );
-    // Assert
-    expect(screen.getByTestId("layout")).toBeInTheDocument();
-  });
-
   it("should render with undefined children", () => {
-    // Arrange
-    const children = undefined;
     // Act
-    render(
-      <MemoryRouter>
-        <Layout>{children}</Layout>
-      </MemoryRouter>
-    );
+    renderLayout(undefined);
     // Assert
     expect(screen.getByTestId("layout")).toBeInTheDocument();
   });

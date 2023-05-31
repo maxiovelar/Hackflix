@@ -35,6 +35,7 @@ function NavBar({ isOnline }) {
           setIsExpanded(!isExpanded);
         }}
         aria-controls="basic-navbar-nav"
+        data-testid="navbar-toggle"
       />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
@@ -46,7 +47,10 @@ function NavBar({ isOnline }) {
             >
               Search by
             </Dropdown.Toggle>
-            <Dropdown.Menu className="dropdown-menu dropdown-menu-dark dropdown-menu-md-end bg-darker shadow-lg">
+            <Dropdown.Menu
+              className="dropdown-menu dropdown-menu-dark dropdown-menu-md-end bg-darker shadow-lg"
+              data-testid="dropdown-menu"
+            >
               <Dropdown.Item
                 onClick={() => {
                   setIsExpanded(false);

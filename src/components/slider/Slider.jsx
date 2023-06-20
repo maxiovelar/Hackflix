@@ -5,7 +5,7 @@ import Rating from "react-rating";
 import { getCarouselMovies } from "../../api/movies";
 
 function Slider({ setMovieSelected, setModalShow }) {
-  const [carouselMovies, setCarouselMovies] = useState([]);
+  const [carouselMovies, setCarouselMovies] = useState(null);
 
   useEffect(() => {
     getCarouselMovies(setCarouselMovies);
@@ -30,7 +30,7 @@ function Slider({ setMovieSelected, setModalShow }) {
       }
       className="d-none d-lg-block carousel-z-index carousel-mt"
     >
-      {carouselMovies.length > 0 &&
+      {carouselMovies &&
         carouselMovies.map(
           (movie, i) =>
             i <= 9 && (

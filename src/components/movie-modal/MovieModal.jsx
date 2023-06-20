@@ -19,7 +19,7 @@ function MovieModal({ setModalShow, movieSelected, modalShow }) {
       animation={true}
       aria-labelledby="contained-modal-title-vcenter"
       backdropClassName="modal-backdrop"
-      contentClassName="shadow-lg rounded-4 bg-black"
+      contentClassName="modal-z-index modal-shadow rounded-4 bg-dark border border-0"
       centered
     >
       <Modal.Header className="border-0 pb-0 pt-0 position-relative">
@@ -28,13 +28,13 @@ function MovieModal({ setModalShow, movieSelected, modalShow }) {
           className="rounded-circle position-absolute top-0 end-0"
           onClick={handleClose}
         >
-          <i className="bi bi-x-circle-fill text-orange fs-2 hover"></i>
+          <i className="bi bi-x-circle-fill drop-shadow text-orange fs-2 hover"></i>
         </Button>
         <div className="d-flex justify-content-center w-100 mt-0 rounded-top">
           {movieSelected.backdrop_path ? (
             <img
               className="object-fit-cover rounded-top"
-              src={`https://image.tmdb.org/t/p/w500/${movieSelected.backdrop_path}`}
+              src={`${process.env.REACT_APP_API_IMAGE_BASE_URL}/w500/${movieSelected.backdrop_path}`}
               alt={movieSelected.title}
             />
           ) : (
@@ -50,7 +50,7 @@ function MovieModal({ setModalShow, movieSelected, modalShow }) {
       <Modal.Body className="mb-0 pb-0 px-2 px-sm-4">
         <div className="d-flex flex-column text-white px-3">
           <Modal.Title id="contained-modal-title-vcenter">
-            <p className="fw-bold h3 text-center mb-3 modal-sm-title">
+            <p className="fw-bold h3 text-center mb-4 modal-sm-title">
               {movieSelected.title}
               {
                 <i
@@ -63,12 +63,14 @@ function MovieModal({ setModalShow, movieSelected, modalShow }) {
             </p>
           </Modal.Title>
           <div>
-            <span className="h5 d-block mb-0 modal-sm-subtitle">Overview:</span>
-            <p className="modal-sm-text">{movieSelected.overview}</p>
+            <span className="h5 d-block mb-2 modal-sm-subtitle">Overview:</span>
+            <article className="modal-sm-text fs-7 lh-lg overflow-auto">
+              {movieSelected.overview}
+            </article>
           </div>
         </div>
       </Modal.Body>
-      <Modal.Footer className="border-0 mt-0 ps-2 pe-4 px-sm-4 pb-3">
+      <Modal.Footer className="border-0 mt-0 ps-2 pe-4 px-sm-4">
         <div className="w-100 d-flex flex-column flex-sm-row align-items-sm-center justify-content-sm-between px-3">
           <span className="text-orange text-shadow modal-sm-subtitle">
             Votes count:
@@ -89,7 +91,7 @@ function MovieModal({ setModalShow, movieSelected, modalShow }) {
             />
           </div>
         </div>
-        <div className="d-flex align-items-center justify-content-end justify-content-sm-center w-100 pt-2">
+        <div className="d-flex align-items-center justify-content-end justify-content-sm-center w-100 pt-5 mb-4">
           <Link
             to={`/movie/${movieSelected.id}`}
             className="text-decoration-none orange-hover text-orange fs-5 fw-bold"

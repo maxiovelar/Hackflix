@@ -1,6 +1,7 @@
 .nav-position {
   position: sticky;
   top: 0;
+  z-index: 1000;
 }
 
 .navbar-brand-link {
@@ -33,8 +34,9 @@
   outline: none;
 }
 
-.nav-dropdown-link:hover {
+#basic-navbar-nav > div > div > div > a:hover {
   color: #ef6c00;
+  background-color: transparent;
 }
 
 @media only screen and (max-width: 1260px) {

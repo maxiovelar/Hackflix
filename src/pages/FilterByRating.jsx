@@ -1,68 +1,43 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Rating from "react-rating";
 import Movie from "../components/movie/Movie";
 import MovieModal from "../components/movie-modal/MovieModal";
 import ScrollToTop from "../components/scrollToTop/ScrollToTop";
 import "./FilterByRating.css";
-import { Spinner } from "react-bootstrap";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { filterMovies } from "../api/movies";
+import { Loader } from "../components/loader/Loader";
 
 function FilterByRating() {
   const [rating, setRating] = useState(0);
   const [movies, setMovies] = useState([]);
   const [movieSelected, setMovieSelected] = useState({});
   const [modalShow, setModalShow] = useState(false);
-  const [pageCounter, setPageCounter] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
-
-  function handleScroll() {
-    if (
-      window.innerHeight + Math.ceil(window.pageYOffset) >=
-      document.body.offsetHeight
-    ) {
-      setPageCounter((prev) => prev + 1);
-    }
-  }
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    const getMovies = async () => {
-      setPageCounter(1);
-      const { data } = await axios
-        .get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&vote_average.gte=${
-            rating * 2 - 0.99
-          }&page=${pageCounter}&sort_by=vote_average.desc&vote_count.gte=100&include_adult=false`
-        )
-        .catch((err) => {
-          console.log("ERROR: ", err);
-        });
-      setMovies(data.results);
-    };
-    rating && getMovies();
+    setPage(1);
   }, [rating]);
 
   useEffect(() => {
-    const getMovies = async () => {
-      const { data } = await axios
-        .get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&vote_average.gte=${
-            rating * 2 - 0.99
-          }&page=${pageCounter}&sort_by=vote_average.desc&vote_count.gte=100&include_adult=false`
-        )
-        .catch((err) => {
-          console.log("ERROR: ", err);
-        });
-      setMovies((prev) => [...prev, ...data.results]);
-    };
-    rating && getMovies();
-  }, [pageCounter]);
+    if (page === 1 && rating !== 0) {
+      filterMovies({
+        currentPage: page,
+        setPage: setPage,
+        setMovies: setMovies,
+        newRating: rating,
+      });
+    }
+  }, [rating, page]);
+
+  const handleInfiniteScroll = () => {
+    filterMovies({
+      currentPage: page,
+      setPage: setPage,
+      setMovies: setMovies,
+      newRating: rating,
+    });
+  };
 
   return (
     <div className="mb-5">
@@ -75,36 +50,39 @@ function FilterByRating() {
             initialRating={rating}
             onChange={(newRating) => {
               setRating(newRating);
-              setIsLoading(true);
             }}
           />
         </div>
       </div>
-      {isLoading && (
-        <div className="d-flex justify-content-center align-items-center mt-5 pt-5">
-          <Spinner animation="border" variant="secondary" />
-        </div>
-      )}
       <div className="container animate__animated animate__fadeIn">
         <ScrollToTop movies={movies} />
         <div className="row gy-4 gx-2 animate__animated animate__fadeIn">
-          {movies.length > 0 &&
-            rating !== 0 &&
-            movies.map((movie) => (
-              <div
-                key={movie.id + Math.random()}
-                className="col-4 col-sm-3 col-md-3 col-lg-2 animate__animated animate__fadeIn"
-                onLoad={() => {
-                  setIsLoading(false);
-                }}
-              >
-                <Movie
-                  movie={movie}
-                  setMovieSelected={setMovieSelected}
-                  setModalShow={setModalShow}
-                />
-              </div>
-            ))}
+          {movies.length > 0 && rating !== 0 && (
+            <InfiniteScroll
+              dataLength={movies.length}
+              next={handleInfiniteScroll}
+              hasMore={true}
+              loader={
+                <div className="d-flex justify-content-center align-items-center mt-5 pt-5">
+                  <Loader />
+                </div>
+              }
+              className="row gy-4 gx-2 animate__animated animate__fadeIn overflow-visible"
+            >
+              {movies.map((movie) => (
+                <div
+                  key={movie.id + Math.random()}
+                  className="col-4 col-sm-3 col-md-3 col-lg-2 animate__animated animate__fadeIn"
+                >
+                  <Movie
+                    movie={movie}
+                    setMovieSelected={setMovieSelected}
+                    setModalShow={setModalShow}
+                  />
+                </div>
+              ))}
+            </InfiniteScroll>
+          )}
           {!movies.length > 0 && rating !== 0 && (
             <div
               className="alert bg-orange text-white mt-5 fs-5 text-center"

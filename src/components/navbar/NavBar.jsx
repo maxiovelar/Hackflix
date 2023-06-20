@@ -52,30 +52,34 @@ function NavBar({ isOnline }) {
               data-testid="dropdown-menu"
             >
               <Dropdown.Item
+                as={Link}
+                to={"/search-by-title"}
                 onClick={() => {
                   setIsExpanded(false);
                 }}
-                className="nav-dropdown-link py-3 py-lg-2"
+                className="nav-dropdown-link text-decoration-none text-orange py-3 py-lg-2"
               >
-                <Link
+                {/* <Link
                   to={"/search-by-title"}
                   className="text-decoration-none text-orange nav-dropdown-link py-3 py-lg-2"
-                >
-                  Search by title
-                </Link>
+                > */}
+                Search by title
+                {/* </Link> */}
               </Dropdown.Item>
               <Dropdown.Item
+                as={Link}
+                to={"/search-by-rating"}
                 onClick={() => {
                   setIsExpanded(false);
                 }}
-                className="nav-dropdown-link py-3 py-lg-2"
+                className="nav-dropdown-link text-decoration-none text-orange py-3 py-lg-2"
               >
-                <Link
+                {/* <Link
                   to={"/search-by-rating"}
                   className="text-decoration-none text-orange nav-dropdown-link"
-                >
-                  Search by rating
-                </Link>
+                > */}
+                Search by rating
+                {/* </Link> */}
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

@@ -14,9 +14,10 @@ function Movie({ movie, setModalShow, setMovieSelected }) {
     >
       {movie.poster_path ? (
         <img
-          src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+          src={`${process.env.REACT_APP_API_IMAGE_BASE_URL}/w500/${movie.poster_path}`}
           alt={movie.title}
           className="w-100 rounded-4 poster-movie"
+          onLoad={() => setIsLoading(false)}
         />
       ) : (
         <div className="w-100 position-relative">
@@ -26,6 +27,7 @@ function Movie({ movie, setModalShow, setMovieSelected }) {
             width={"100%"}
             alt={movie.title}
             className="rounded-4 poster-movie"
+            onLoad={() => setIsLoading(false)}
           />
           <span className="d-block position-absolute top-50 start-50 translate-middle text-white">
             {movie.title}

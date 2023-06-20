@@ -87,8 +87,8 @@ export const getCarouselMovies = async (setCarouselMovies) => {
     },
   };
   try {
-    const { data } = await axios.get("discover/movie", getCarouselMoviesConfig);
-    setCarouselMovies(data.results);
+    const response = await axios.get("discover/movie", getCarouselMoviesConfig);
+    setCarouselMovies(response.data.results);
   } catch (error) {
     console.log("ERROR:", error);
   }

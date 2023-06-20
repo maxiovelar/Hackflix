@@ -1,16 +1,15 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import Rating from "react-rating";
 import { useParams } from "react-router-dom";
-import Player from "../components/player/Player";
 import "./SingleMovie.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import cn from "classnames";
+import { getMovie } from "../api/movies";
 
 function SingleMovie() {
   const [singleMovie, setSingleMovie] = useState({});
-  const params = useParams();
+  const { id: movieId } = useParams();
   const notify = () =>
     toast.info("This function is beyond the scope of this project.");
 
@@ -21,18 +20,8 @@ function SingleMovie() {
   }, []);
 
   useEffect(() => {
-    const getMovie = async () => {
-      const { data } = await axios
-        .get(
-          `https://api.themoviedb.org/3/movie/${params.id}?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US`
-        )
-        .catch((err) => {
-          console.log("ERROR: ", err);
-        });
-      setSingleMovie(data);
-    };
-    getMovie();
-  }, [params.id]);
+    getMovie(movieId, setSingleMovie);
+  }, [movieId]);
 
   console.log(singleMovie);
 
@@ -42,7 +31,7 @@ function SingleMovie() {
         <div className="d-flex main-movie-content">
           <div className="flex-shrink-0 poster-container">
             <img
-              src={`https://image.tmdb.org/t/p/w500/${singleMovie.poster_path}`}
+              src={`${process.env.REACT_APP_API_IMAGE_BASE_URL}/w500/${singleMovie.poster_path}`}
               alt={singleMovie.title}
               className="movie-page-img-size img-fluid"
             />
@@ -94,7 +83,6 @@ function SingleMovie() {
                 title="This function is beyond the scope of this project"
                 onClick={notify}
               />
-              {/* <Player /> */}
             </div>
           </div>
         </div>

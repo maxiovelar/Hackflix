@@ -1,20 +1,14 @@
 import React, { useEffect, useState } from "react";
 import "./Slider.css";
 import { Carousel } from "react-bootstrap";
-import axios from "axios";
 import Rating from "react-rating";
+import { getCarouselMovies } from "../../api/movies";
 
 function Slider({ setMovieSelected, setModalShow }) {
   const [carouselMovies, setCarouselMovies] = useState([]);
 
   useEffect(() => {
-    const getMovies = async () => {
-      const response = await axios.get(
-        "https://api.themoviedb.org/3/discover/movie?api_key=8836ccc55842255d5b53cba76a1d1014&language=en-US&sort_by=vote_count.desc&include_adult=false&include_video=false&page=1&with_watch_monetization_types=flatrate&page=1"
-      );
-      setCarouselMovies(response.data.results);
-    };
-    getMovies();
+    getCarouselMovies(setCarouselMovies);
   }, []);
 
   const handleClick = (movie) => {
@@ -44,7 +38,7 @@ function Slider({ setMovieSelected, setModalShow }) {
                 <div>
                   <div className="img-dark-gradient"></div>
                   <img
-                    src={`https://image.tmdb.org/t/p/w1280/${movie.backdrop_path}`}
+                    src={`${process.env.REACT_APP_API_IMAGE_BASE_URL}/w1280/${movie.backdrop_path}`}
                     className="d-block w-100"
                     alt={movie.tite}
                   />

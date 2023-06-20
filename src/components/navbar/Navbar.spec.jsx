@@ -89,7 +89,7 @@ describe("Navbar test cases", () => {
     const searchByRatingLink = screen.getByText("Search by rating");
     // Assert
     expect(dropdownMenu).toHaveClass("show");
-    expect(searchByTitleLink).toHaveAttribute("href", "/search-by-title");
+    expect(searchByTitleLink).toHaveAttribute("href", "/search-by-title");  
     expect(searchByRatingLink).toHaveAttribute("href", "/search-by-rating");
   });
 
